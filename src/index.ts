@@ -5,14 +5,7 @@ dotenv.config()
 import * as morgan from "morgan"
 import * as express from "express"
 import * as bodyParser from "body-parser"
-
-// Code
-
-import './routines/ProcessReceivedTransactions'
-import './routines/ProcessSendTransactions'
-import './jobs/RedundantTransactionsObservable'
-import './routines/ProcessCreateAddress'
-import './routines/SetNodeStatus'
+import routes from "./routes/litecoin.routes"
 
 const port: any = process.env.SERVICEPORT
 
@@ -42,6 +35,8 @@ app.use(function (req: any, res: any, next: any) {
     next()
 })
 app.disable('x-powered-by')
+
+app.use(routes)
 
 app.listen( port, ()=> {
     console.log("Running on %s",  port)
